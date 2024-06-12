@@ -1,5 +1,8 @@
 # Use the official Python image from the Docker Hub
 FROM python:latest
+# install mysql dependencies
+RUN apt-get update
+RUN apt-get install gcc default-libmysqlclient-dev -y
 
 # Set the working directory in the container
 WORKDIR /app
@@ -15,4 +18,6 @@ EXPOSE 8000
 
 #CMD ["python", "manage.py", "runserver"]
 #CMD ["tail", "-f", "/dev/null"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "app.py"]
+#CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=8000"]
+CMD ["flask", "--app", "app", "run", "--debug"  ]
